@@ -1,20 +1,19 @@
 <script>
 	export default {
-		onLaunch: function() {
+		onLaunch: () => {
 			console.log('App Launch')
 		},
-		onShow: function() {
+		onShow: () => {
 			console.log('App Show')
 		},
-		onHide: function() {
+		onHide: () => {
 			console.log('App Hide')
 		}
 	}
 </script>
 
 <style lang="scss">
-	page {
-		background-color: #15141f;
-		color: #FFF;
+	.page-container {
+		padding: 20rpx;
 	}
 </style>

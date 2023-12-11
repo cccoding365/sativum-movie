@@ -2,7 +2,7 @@ import request from '@/apis/request';
 
 export const getMovies = (filter : string, page : number) => {
 	return request.GET(`/movie/${filter}`, {
-		language: 'en-US',
+		language: 'zh-CN',
 		page
 	});
 };
@@ -14,7 +14,7 @@ interface ISearchMoviesReqOption {
 
 export const searchMovies = ({ query, page } : ISearchMoviesReqOption) => {
 	return request.GET(`/search/movie`, {
-		language: 'en-US',
+		language: 'zh-CN',
 		query,
 		page
 	});
@@ -22,7 +22,7 @@ export const searchMovies = ({ query, page } : ISearchMoviesReqOption) => {
 
 export const getMovie = (id : number) => {
 	return request.GET(`/movie/${id}`, {
-		language: 'en-US'
+		language: 'zh-CN'
 	});
 };
 

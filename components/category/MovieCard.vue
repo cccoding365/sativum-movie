@@ -40,16 +40,14 @@
 			position: absolute;
 			top: 0;
 			right: 0;
-			background-color: rgba(30, 30, 30, 0.9);
+			background-color: darkgoldenrod;
 			border-radius: 0 0 0 10upx;
 			font-size: 24rpx;
 			padding: 5rpx 15rpx;
-			color: goldenrod;
-			font-weight: bold;
+			color: #000;
 		}
 
 		.title {
-			text-align: center;
 			font-size: 24rpx;
 			line-height: 40rpx;
 			overflow: hidden;
@@ -59,7 +57,6 @@
 
 		.release-year {
 			font-size: 20rpx;
-			text-align: center;
 			color: #999;
 		}
 	}

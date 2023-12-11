@@ -1,25 +1,22 @@
 import config from '@/configs';
-const request = ({ url, data, method } : UniNamespace.RequestOptions) => {
+const request = (option : UniNamespace.RequestOptions) => {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url,
-			method,
-			data,
+			url: config.BASE_URL + option.url,
+			method: option.method,
+			data: option.data,
 			header: {
 				Authorization: config.TOKEN
 			},
 			success: res => {
 				resolve(res.data);
+			},
+			fail: err => {
+				reject(err);
 			}
 		});
 	});
 };
-
-uni.addInterceptor('request', {
-	invoke: args => {
-		args.url = config.BASE_URL + args.url;
-	}
-});
 
 export default {
 	GET: (url : string, data ?: string | AnyObject | ArrayBuffer) => request({ url, data, method: "GET" }),

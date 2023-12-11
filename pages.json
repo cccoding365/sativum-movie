@@ -1,6 +1,9 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/movie/index"
+		},
+		{
 			"path": "pages/index/index"
 		},
 		{
@@ -24,16 +27,22 @@
 		"backgroundColor": "#ffffff",
 		"list": [ // 菜单栏
 			{
+				"pagePath": "pages/movie/index",
+				"iconPath": "static/icon/category.png",
+				"selectedIconPath": "static/icon/category-active.png",
+				"text": "电影"
+			},
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/icon/home.png",
+				"selectedIconPath": "static/icon/home-active.png",
+				"text": "首页"
+			},
+			{
 				"pagePath": "pages/category/index",
 				"iconPath": "static/icon/category.png",
 				"selectedIconPath": "static/icon/category-active.png",
 				"text": "分类"
-			},
-			{
-				"pagePath": "pages/index/index",
-				"iconPath": "static/icon/explore.png",
-				"selectedIconPath": "static/icon/explore-active.png",
-				"text": "首页"
 			},
 			{
 				"pagePath": "pages/mine/index",
