@@ -1,7 +1,10 @@
 <script>
+	import * as apis from '@/apis'
 	export default {
-		onLaunch: () => {
-			console.log('App Launch')
+		onLaunch: async () => {
+			console.log('App Launch');
+			const { genres } = await apis.getMovieGenres();
+			uni.setStorageSync('Genres', genres)
 		},
 		onShow: () => {
 			console.log('App Show')
@@ -13,7 +16,8 @@
 </script>
 
 <style lang="scss">
-	.page-container {
-		padding: 20rpx;
+	page {
+		color: #333;
+		overflow-y: hidden;
 	}
 </style>

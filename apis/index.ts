@@ -7,6 +7,12 @@ export const getMovies = (filter : string, page : number) => {
 	});
 };
 
+export const getMovieGenres = () => {
+	return request.GET(`/genre/movie/list`, {
+		language: 'zh-CN'
+	});
+};
+
 interface ISearchMoviesReqOption {
 	query : string;
 	page : number;

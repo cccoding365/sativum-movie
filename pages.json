@@ -1,22 +1,39 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/movie/index"
+			"path": "pages/movie/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
 		},
 		{
-			"path": "pages/index/index"
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
 		},
 		{
-			"path": "pages/category/index"
+			"path": "pages/category/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
 		},
 		{
-			"path": "pages/mine/index"
+			"path": "pages/mine/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
 		}
 	],
+	"subPackages": [{
+		"root": "views",
+		"pages": [{
+			"path": "movieDetail/index"
+		}]
+	}],
 	"globalStyle": {
-		"navigationStyle": "custom",
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "蒜苗",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
