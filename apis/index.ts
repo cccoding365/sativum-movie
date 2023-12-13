@@ -1,6 +1,7 @@
 import request from '@/apis/request';
+import * as types from '@/types';
 
-export const getMovies = (filter : string, page : number) => {
+export const getMovies = (filter : types.TMovieFilter, page : number) => {
 	return request.GET(`/movie/${filter}`, {
 		language: 'zh-CN',
 		page

@@ -1,7 +1,8 @@
 <template>
 	<uni-nav-bar statusBar title="电影" />
 	<view class="page-container">
-		<scroll-view class="movie-list" scroll-y="true" @scrolltoupper="onScroll2Upper" @scrolltolower="onScroll2Lower">
+		<scroll-view class="movie-list" scroll-y="true" refresher-enabled @refresherrefresh="onRefresherrefresh"
+			:refresher-triggered="refresherTriggered" @scrolltolower="onScroll2Lower">
 			<view class="movie-item" v-for="item in movieList.results" :key="item.id" @tap="onMovieDetail(item.id)">
 				<view class="poster">
 					<image class="image" :src="configs.IMAGE_URL.medium + item.poster_path" mode="aspectFit" />
@@ -21,6 +22,7 @@
 					</view>
 				</view>
 			</view>
+			<uni-load-more :status="loadMoreStatus" />
 		</scroll-view>
 	</view>
 </template>
@@ -36,13 +38,16 @@
 		total_pages: 0,
 		total_results: 0
 	});
-	const isLoading = ref<boolean>(false);
+
+	type TLoadMoreStatus = 'more' | 'loading' | 'no-more';
+
+	const loadMoreStatus = ref<TLoadMoreStatus>('more');
 	const fetchMovieListData = async (filter : types.TMovieFilter = 'top_rated', page : number = movieList.value.page + 1) => {
-		isLoading.value = true;
-		const { page: currentPage, results } = (await apis.getMovies(filter, page)) as types.IMovieList;
+		loadMoreStatus.value = 'loading';
+		const { page: currentPage, results, total_pages } = (await apis.getMovies(filter, page)) as types.IMovieList;
 		movieList.value.page = currentPage;
 		movieList.value.results.push(...results);
-		isLoading.value = false;
+		loadMoreStatus.value = currentPage === total_pages ? 'no-more' : 'more';
 	};
 
 	const getMovieGenre = (id : number) => {
@@ -58,13 +63,19 @@
 		});
 	};
 
-	const onScroll2Upper = () => {
-		console.log('onScroll2Upper');
+	const refresherTriggered = ref<boolean>(false);
+	const onRefresherrefresh = async () => {
+		refresherTriggered.value = true;
+		const { page: currentPage, results, total_pages } = (await apis.getMovies('top_rated', 1)) as types.IMovieList;
+		movieList.value.page = currentPage;
+		movieList.value.results = results;
+		refresherTriggered.value = false;
+		loadMoreStatus.value = currentPage === total_pages ? 'no-more' : 'more';
 	};
 
+
 	const onScroll2Lower = () => {
-		console.log('onScroll2Lower');
-		if (!isLoading.value) {
+		if (loadMoreStatus.value === 'more') {
 			fetchMovieListData();
 		}
 	};
