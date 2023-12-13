@@ -1,11 +1,13 @@
 <template>
 	<uni-nav-bar statusBar title="电影" />
 	<view class="page-container">
-		<scroll-view class="movie-list" scroll-y="true" refresher-enabled @refresherrefresh="onRefresherrefresh"
-			:refresher-triggered="refresherTriggered" @scrolltolower="onScroll2Lower">
+		<scroll-view class="movie-list" :style="{height:scrollViewHeight}" scroll-y="true" refresher-enabled
+			:show-scrollbar="false" @refresherrefresh="onRefresherrefresh" :refresher-triggered="refresherTriggered"
+			@scrolltolower="onScroll2Lower">
 			<view class="movie-item" v-for="item in movieList.results" :key="item.id" @tap="onMovieDetail(item.id)">
 				<view class="poster">
-					<image class="image" :src="configs.IMAGE_URL.medium + item.poster_path" mode="aspectFit" />
+					<image class="image" :src="configs.IMAGE_URL.medium + item.poster_path" mode="aspectFit"
+						lazy-load />
 				</view>
 				<view class="info">
 					<view class="release-date-title">
@@ -28,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-	import { onMounted, ref } from 'vue';
+	import { computed, onMounted, ref } from 'vue';
 	import configs from '@/configs';
 	import * as apis from '@/apis';
 	import * as types from '@/types';
@@ -57,6 +59,12 @@
 
 	onMounted(fetchMovieListData);
 
+	const scrollViewHeight = computed(() => {
+		const { windowHeight, safeAreaInsets: { top, bottom } } = uni.getSystemInfoSync();
+		console.log(uni.getSystemInfoSync());
+		return (windowHeight - top - bottom) + 'px';
+	});
+
 	const onMovieDetail = (id : number) => {
 		uni.navigateTo({
 			url: `../../views/movieDetail/index?id=${id}`
@@ -82,12 +90,16 @@
 </script>
 
 <style lang="scss" scoped>
+	scroll-view ::-webkit-scrollbar {
+		width: 0;
+		height: 0;
+		background-color: transparent;
+	}
+
 	.page-container {
 		padding: 20rpx;
 
 		.movie-list {
-			height: calc(100vh - 200rpx);
-
 			.movie-item {
 				display: flex;
 				gap: 20rpx;
