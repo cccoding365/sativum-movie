@@ -1,0 +1,1 @@
+export type LoadMoreStatus = 'more' | 'loading' | 'no-more';

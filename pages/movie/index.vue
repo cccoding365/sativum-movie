@@ -32,28 +32,26 @@
 <script lang="ts" setup>
 	import { computed, onMounted, ref } from 'vue';
 	import configs from '@/configs';
-	import * as apis from '@/apis';
-	import * as types from '@/types';
-	const movieList = ref<types.IMovieList>({
+	import apis from '@/apis';
+	import types from '@/types';
+	const movieList = ref<types.MovieList>({
 		results: [],
 		page: 0,
 		total_pages: 0,
 		total_results: 0
 	});
 
-	type TLoadMoreStatus = 'more' | 'loading' | 'no-more';
-
-	const loadMoreStatus = ref<TLoadMoreStatus>('more');
-	const fetchMovieListData = async (filter : types.TMovieFilter = 'top_rated', page : number = movieList.value.page + 1) => {
+	const loadMoreStatus = ref<types.LoadMoreStatus>('more');
+	const fetchMovieListData = async (filter : types.MovieFilter = 'top_rated', page : number = movieList.value.page + 1) => {
 		loadMoreStatus.value = 'loading';
-		const { page: currentPage, results, total_pages } = (await apis.getMovies(filter, page)) as types.IMovieList;
+		const { page: currentPage, results, total_pages } = (await apis.getMovies(filter, page)) as types.MovieList;
 		movieList.value.page = currentPage;
 		movieList.value.results.push(...results);
 		loadMoreStatus.value = currentPage === total_pages ? 'no-more' : 'more';
 	};
 
 	const getMovieGenre = (id : number) => {
-		const genres = uni.getStorageSync('Genres') as types.IMovieGenre[];
+		const genres = uni.getStorageSync('Genres') as types.MovieGenre[];
 		return genres.find(item => item.id === id).name;
 	};
 
@@ -61,7 +59,6 @@
 
 	const scrollViewHeight = computed(() => {
 		const { windowHeight, safeAreaInsets: { top, bottom } } = uni.getSystemInfoSync();
-		console.log(uni.getSystemInfoSync());
 		return (windowHeight - top - bottom) + 'px';
 	});
 
@@ -74,7 +71,7 @@
 	const refresherTriggered = ref<boolean>(false);
 	const onRefresherrefresh = async () => {
 		refresherTriggered.value = true;
-		const { page: currentPage, results, total_pages } = (await apis.getMovies('top_rated', 1)) as types.IMovieList;
+		const { page: currentPage, results, total_pages } = (await apis.getMovies('top_rated', 1)) as types.MovieList;
 		movieList.value.page = currentPage;
 		movieList.value.results = results;
 		refresherTriggered.value = false;

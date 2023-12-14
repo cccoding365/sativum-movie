@@ -1,4 +1,4 @@
-export interface IMovieItem {
+export interface MovieItem {
 	adult : boolean;
 	backdrop_path : string;
 	genre_ids : number[];
@@ -15,42 +15,42 @@ export interface IMovieItem {
 	vote_count : number;
 }
 
-export interface IMovieGenre {
+export interface MovieGenre {
 	id : number;
 	name : string;
 }
 
-export interface ICollection {
+export interface Collection {
 	backdrop_path : string;
 	id : number;
 	name : string;
 	poster_path : string;
 }
 
-export interface IProductionCompany {
+export interface ProductionCompany {
 	id : number;
 	logo_path : string;
 	name : string;
 	origin_country : string;
 }
 
-export interface IProductionCountry {
+export interface ProductionCountry {
 	iso_3166_1 : string;
 	name : string;
 }
 
-export interface ISpokenLanguage {
+export interface SpokenLanguage {
 	english_name : string;
 	iso_639_1 : string;
 	name : string;
 }
 
-export interface IMovieDetail {
+export interface MovieDetail {
 	adult : boolean;
 	backdrop_path : string;
-	belongs_to_collection : ICollection;
+	belongs_to_collection : Collection;
 	budget : number;
-	genres : IMovieGenre[];
+	genres : MovieGenre[];
 	homepage : string;
 	id : number;
 	imdb_id : string;
@@ -59,12 +59,12 @@ export interface IMovieDetail {
 	overview : string;
 	popularity : number;
 	poster_path : string;
-	production_companies : IProductionCompany[];
-	production_countries : IProductionCountry[];
+	production_companies : ProductionCompany[];
+	production_countries : ProductionCountry[];
 	release_date : string;
 	revenue : number;
 	runtime : number;
-	spoken_languages : ISpokenLanguage[];
+	spoken_languages : SpokenLanguage[];
 	status : string;
 	tagline : string;
 	title : string;
@@ -73,11 +73,11 @@ export interface IMovieDetail {
 	vote_count : number;
 }
 
-export interface IMovieList {
+export interface MovieList {
 	page : number;
-	results : IMovieItem[];
+	results : MovieItem[];
 	total_pages : number;
 	total_results : number;
 }
 
-export type TMovieFilter = 'popular' | 'now_playing' | 'top_rated' | 'upcoming';
+export type MovieFilter = 'popular' | 'now_playing' | 'top_rated' | 'upcoming';

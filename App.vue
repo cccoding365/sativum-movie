@@ -1,23 +1,22 @@
 <script>
-	import * as apis from '@/apis'
+	import apis from '@/apis';
 	export default {
 		onLaunch: async () => {
 			console.log('App Launch');
 			const { genres } = await apis.getMovieGenres();
-			uni.setStorageSync('Genres', genres)
+			uni.setStorageSync('Genres', genres);
 		},
 		onShow: () => {
-			console.log('App Show')
+			console.log('App Show');
 		},
 		onHide: () => {
-			console.log('App Hide')
+			console.log('App Hide');
 		}
-	}
+	};
 </script>
 
 <style lang="scss">
 	page {
 		color: #333;
-		overflow-y: hidden;
 	}
 </style>

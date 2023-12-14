@@ -26,7 +26,7 @@
 		<!-- #ifndef APP-NVUE -->
 		<view v-else-if="!webviewHide && status === 'loading' && showIcon"
 			:style="{width:iconSize+'px',height:iconSize+'px'}" class="uni-load-more__img uni-load-more__img--ios-H5">
-			<image :src="imgBase64" mode="widthFix"></image>
+			<image class="image" :src="imgBase64" mode="widthFix"></image>
 		</view>
 		<!-- #endif -->
 		<text v-if="showText" class="uni-load-more__text"
@@ -39,7 +39,6 @@
 	setTimeout(() => {
 		platform = uni.getSystemInfoSync().platform
 	}, 16)
-
 	import {
 		initVueI18n
 	} from '@dcloudio/uni-i18n'
@@ -47,7 +46,6 @@
 	const {
 		t
 	} = initVueI18n(messages)
-
 	/**
 	 * LoadMore 加载更多
 	 * @description 用于列表中，做滚动加载使用，展示 loading 的各种状态
@@ -152,7 +150,7 @@
 	}
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 	.uni-load-more {
 		/* #ifndef APP-NVUE */
 		display: flex;
@@ -205,7 +203,7 @@
 		animation: loading-ios-H5 1s 0s step-end infinite;
 	}
 
-	.uni-load-more__img--ios-H5 image {
+	.uni-load-more__img--ios-H5 .image {
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -268,7 +266,6 @@
 	}
 
 	/* #endif */
-
 	/* #ifdef H5 */
 	.uni-load-more__img--android-H5 {
 		animation: loading-android-H5-rotate 2s linear infinite;
@@ -310,7 +307,6 @@
 	}
 
 	/* #endif */
-
 	/* #ifndef APP-NVUE || H5 */
 	.uni-load-more__img--android-MP {
 		position: relative;

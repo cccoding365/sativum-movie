@@ -1,8 +1,5 @@
 <template>
-	<view v-if="isLoading" class="loading">
-		数据加载中
-	</view>
-	<view v-else class="page-container">
+	<view v-if="movieDetail" class="page-container">
 		<view class="backdrop">
 			<image class="image" :src="configs.IMAGE_URL.large + movieDetail.backdrop_path" mode="aspectFit" />
 		</view>
@@ -37,15 +34,15 @@
 	import { ref } from 'vue';
 	import { onLoad } from '@dcloudio/uni-app';
 	import configs from '@/configs';
-	import * as apis from '@/apis';
-	import * as types from '@/types';
+	import apis from '@/apis';
+	import types from '@/types';
 
-	const isLoading = ref<boolean>(true);
-	const movieDetail = ref<types.IMovieDetail>();
+	const movieDetail = ref<types.MovieDetail>();
 
 	onLoad(async params => {
-		movieDetail.value = await apis.getMovie(params.id) as types.IMovieDetail;
-		isLoading.value = false;
+		uni.showLoading();
+		movieDetail.value = await apis.getMovie(params.id) as types.MovieDetail;
+		uni.hideLoading();
 		uni.setNavigationBarTitle({
 			title: movieDetail.value.title
 		});
