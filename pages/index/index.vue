@@ -1,15 +1,16 @@
 <template>
 	<uni-nav-bar statusBar title="蒜苗" />
 	<view class="container">
-		<uni-search-bar placeholder="搜索你感兴趣的电影" bgColor="#EEEEEE" @confirm="search" @cancel="onSearchCancel" />
-		<view class="movie-list" :show-scrollbar="false" @refresherrefresh="onRefresherrefresh"
-			:refresher-triggered="refresherTriggered" @scrolltolower="onScroll2Lower">
+		<uni-search-bar placeholder="搜索你感兴趣的电影" bgColor="#EEEEEE" v-model="searchQuery" @confirm="search"
+			@cancel="onSearchCancel" />
+		<scroll-view class="movie-list" scroll-y="true" lower-threshold="200" :show-scrollbar="false"
+			@scrolltolower="onScroll2Lower">
 			<uni-grid :showBorder="false" :square="false">
 				<uni-grid-item class="movie-item" v-for="item in movieList.results" :key="item.id"
 					@tap="onMovieDetail(item.id)">
 					<view class="poster">
-						<image class="image" :src="configs.IMAGE_URL.medium + item.poster_path" mode="aspectFit"
-							lazy-load />
+						<image v-if="item.poster_path" class="image" :src="configs.IMAGE_URL.medium + item.poster_path"
+							mode="aspectFit" lazy-load />
 						<view class="vote-average">
 							<text> {{ item.vote_average.toFixed(1) }} </text>
 						</view>
@@ -17,8 +18,8 @@
 					</view>
 				</uni-grid-item>
 			</uni-grid>
-		</view>
-		<uni-load-more v-if="loadMoreStatus" :status="loadMoreStatus" />
+			<uni-load-more v-if="loadMoreStatus" :status="loadMoreStatus" />
+		</scroll-view>
 	</view>
 </template>
 
@@ -31,42 +32,32 @@
 
 	const movieList = ref<types.MovieList>({
 		results: [],
-		page: 0,
+		page: 1,
 		total_pages: 0,
 		total_results: 0
 	});
 	const loadMoreStatus = ref<types.LoadMoreStatus | null>(null);
-
-	const search = async (e : { value : string; }) => {
+	const searchQuery = ref<string>('');
+	const search = async () => {
 		loadMoreStatus.value = 'loading';
-		const { page: currentPage, results, total_pages } = (await apis.searchMovies(e.value, 1)) as types.MovieList;
+		const { page: currentPage, results, total_pages } = (await apis.searchMovies(searchQuery.value, movieList.value.page)) as types.MovieList;
 		movieList.value.page = currentPage;
-		movieList.value.results = results;
+		movieList.value.results.push(...results);
 		loadMoreStatus.value = currentPage === total_pages ? 'no-more' : 'more';
 	};
 
 	onLoad(() => {
-		search({ value: '哈哈' });
+
 	});
 
 	const onSearchCancel = () => {
 		Object.assign(movieList.value, {
 			results: [],
-			page: 0,
+			page: 1,
 			total_pages: 0,
 			total_results: 0
 		});
 		loadMoreStatus.value = null;
-	};
-
-	const refresherTriggered = ref<boolean>(false);
-	const onRefresherrefresh = async () => {
-		refresherTriggered.value = true;
-		const { page: currentPage, results, total_pages } = (await apis.getMovies('top_rated', 1)) as types.MovieList;
-		movieList.value.page = currentPage;
-		movieList.value.results = results;
-		refresherTriggered.value = false;
-		loadMoreStatus.value = currentPage === total_pages ? 'no-more' : 'more';
 	};
 
 	const onMovieDetail = (id : number) => {
@@ -75,9 +66,10 @@
 		});
 	};
 
-
 	const onScroll2Lower = () => {
 		if (loadMoreStatus.value === 'more') {
+			movieList.value.page++;
+			search();
 		}
 	};
 </script>
@@ -87,6 +79,7 @@
 		padding: 20rpx;
 
 		.movie-list {
+			height: calc(100vh - 350rpx);
 			margin-top: 20rpx;
 
 			.movie-item {
@@ -100,6 +93,19 @@
 					flex-shrink: 0;
 					position: relative;
 
+					&::after {
+						content: 'no poster';
+						position: absolute;
+						background-color: #CCC;
+						z-index: -1;
+						font-weight: bold;
+						color: #F4F4F4;
+						text-transform: capitalize;
+						text-align: center;
+						width: 100%;
+						line-height: 270rpx;
+					}
+
 					.image {
 						width: 100%;
 						height: 100%;
@@ -112,20 +118,23 @@
 					right: 0;
 					color: gold;
 					font-size: 24rpx;
-					background-color: #333;
-					padding: 4rpx 15rpx;
+					line-height: 1.5;
+					font-weight: bold;
+					background-color: #333333DD;
+					padding: 0 15rpx;
 					border-radius: 0 0 0 15rpx;
 				}
 
 				.title {
-					background-color: #333;
+					background-color: #333333DD;
 					color: #FFF;
 					position: absolute;
 					width: 100%;
 					text-align: center;
-					bottom: 5rpx;
+					bottom: 0;
 					left: 0;
 					font-size: 24rpx;
+					line-height: 2;
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;

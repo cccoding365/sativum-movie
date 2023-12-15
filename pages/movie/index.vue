@@ -1,8 +1,8 @@
 <template>
 	<uni-nav-bar statusBar title="电影" />
 	<view class="page-container">
-		<scroll-view class="movie-list" :style="{height:scrollViewHeight}" scroll-y="true" refresher-enabled
-			:show-scrollbar="false" @refresherrefresh="onRefresherrefresh" :refresher-triggered="refresherTriggered"
+		<scroll-view class="movie-list" scroll-y="true" refresher-enabled :show-scrollbar="false"
+			@refresherrefresh="onRefresherrefresh" :refresher-triggered="refresherTriggered"
 			@scrolltolower="onScroll2Lower">
 			<view class="movie-item" v-for="item in movieList.results" :key="item.id" @tap="onMovieDetail(item.id)">
 				<view class="poster">
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-	import { computed, onMounted, ref } from 'vue';
+	import { onMounted, ref } from 'vue';
 	import configs from '@/configs';
 	import apis from '@/apis';
 	import types from '@/types';
@@ -56,11 +56,6 @@
 	};
 
 	onMounted(fetchMovieListData);
-
-	const scrollViewHeight = computed(() => {
-		const { windowHeight, safeAreaInsets: { top, bottom } } = uni.getSystemInfoSync();
-		return (windowHeight - top - bottom) + 'px';
-	});
 
 	const onMovieDetail = (id : number) => {
 		uni.navigateTo({
@@ -97,6 +92,8 @@
 		padding: 20rpx;
 
 		.movie-list {
+			height: calc(100vh - 200rpx);
+
 			.movie-item {
 				display: flex;
 				gap: 20rpx;
