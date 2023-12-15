@@ -4,16 +4,19 @@
 		<uni-search-bar placeholder="搜索你感兴趣的电影" bgColor="#EEEEEE" @confirm="search" @cancel="onSearchCancel" />
 		<view class="movie-list" :show-scrollbar="false" @refresherrefresh="onRefresherrefresh"
 			:refresher-triggered="refresherTriggered" @scrolltolower="onScroll2Lower">
-			<view class="movie-item" v-for="item in movieList.results" :key="item.id" @tap="onMovieDetail(item.id)">
-				<view class="poster">
-					<image class="image" :src="configs.IMAGE_URL.medium + item.poster_path" mode="aspectFit"
-						lazy-load />
-					<view class="vote-average">
-						<text> {{ item.vote_average.toFixed(1) }} </text>
+			<uni-grid :showBorder="false" :square="false">
+				<uni-grid-item class="movie-item" v-for="item in movieList.results" :key="item.id"
+					@tap="onMovieDetail(item.id)">
+					<view class="poster">
+						<image class="image" :src="configs.IMAGE_URL.medium + item.poster_path" mode="aspectFit"
+							lazy-load />
+						<view class="vote-average">
+							<text> {{ item.vote_average.toFixed(1) }} </text>
+						</view>
+						<text class="title"> {{ item.title }} </text>
 					</view>
-					<text class="title"> {{ item.title }} </text>
-				</view>
-			</view>
+				</uni-grid-item>
+			</uni-grid>
 		</view>
 		<uni-load-more v-if="loadMoreStatus" :status="loadMoreStatus" />
 	</view>
@@ -21,6 +24,7 @@
 
 <script lang="ts" setup>
 	import { ref } from 'vue';
+	import { onLoad } from '@dcloudio/uni-app';
 	import configs from '@/configs';
 	import apis from '@/apis';
 	import types from '@/types';
@@ -40,6 +44,10 @@
 		movieList.value.results = results;
 		loadMoreStatus.value = currentPage === total_pages ? 'no-more' : 'more';
 	};
+
+	onLoad(() => {
+		search({ value: '哈哈' });
+	});
 
 	const onSearchCancel = () => {
 		Object.assign(movieList.value, {
@@ -79,12 +87,11 @@
 		padding: 20rpx;
 
 		.movie-list {
-			display: flex;
-			justify-content: space-evenly;
-			gap: 30rpx;
-			flex-wrap: wrap;
+			margin-top: 20rpx;
 
 			.movie-item {
+				padding-bottom: 30rpx;
+
 				.poster {
 					width: 180rpx;
 					height: 270rpx;
