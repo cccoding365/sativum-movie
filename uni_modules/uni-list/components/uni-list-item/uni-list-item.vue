@@ -1,7 +1,7 @@
 <template>
 	<!-- #ifdef APP-NVUE -->
 	<cell :keep-scroll-position="keepScrollPosition">
-		<!-- #endif -->
+	<!-- #endif -->
 		<view :class="{ 'uni-list-item--disabled': disabled }" :style="{'background-color':customStyle.backgroundColor}"
 			:hover-class="(!clickable && !link) || disabled || showSwitch ? '' : 'uni-list-item--hover'"
 			class="uni-list-item" @click="onClick">
@@ -15,7 +15,8 @@
 							<image :src="thumb" class="uni-list-item__icon-img" :class="['uni-list--' + thumbSize]" />
 						</view>
 						<view v-else-if="showExtraIcon" class="uni-list-item__icon">
-							<uni-icons :customPrefix="extraIcon.customPrefix" :color="extraIcon.color" :size="extraIcon.size" :type="extraIcon.type" />
+							<uni-icons :customPrefix="extraIcon.customPrefix" :color="extraIcon.color"
+								:size="extraIcon.size" :type="extraIcon.type" />
 						</view>
 					</view>
 				</slot>
@@ -39,7 +40,7 @@
 			</view>
 			<uni-icons v-if="showArrow || link" :size="16" class="uni-icon-wrapper" color="#bbb" type="arrowright" />
 		</view>
-		<!-- #ifdef APP-NVUE -->
+	<!-- #ifdef APP-NVUE -->
 	</cell>
 	<!-- #endif -->
 </template>
@@ -193,7 +194,7 @@
 		watch: {
 			'customStyle.padding': {
 				handler(padding) {
-					if(typeof padding == 'number'){
+					if (typeof padding == 'number') {
 						padding += ''
 					}
 					let paddingArr = padding.split(' ')
@@ -213,14 +214,22 @@
 							"bottom": verticalPadding,
 							"left": horizontalPadding
 						}
+					} else if (paddingArr.length === 3) {
+						const [topPadding, horizontalPadding, bottomPadding] = paddingArr;
+						this.padding = {
+							"top": topPadding,
+							"right": horizontalPadding,
+							"bottom": bottomPadding,
+							"left": horizontalPadding
+						}
 					} else if (paddingArr.length === 4) {
-							const [topPadding, rightPadding, bottomPadding, leftPadding] = paddingArr;
-							this.padding = {
-								"top": topPadding,
-								"right": rightPadding,
-								"bottom": bottomPadding,
-								"left": leftPadding
-							}
+						const [topPadding, rightPadding, bottomPadding, leftPadding] = paddingArr;
+						this.padding = {
+							"top": topPadding,
+							"right": rightPadding,
+							"bottom": bottomPadding,
+							"left": leftPadding
+						}
 					}
 				},
 				immediate: true
@@ -319,17 +328,17 @@
 </script>
 
 <style lang="scss">
-	$uni-font-size-sm:12px;
-	$uni-font-size-base:14px;
-	$uni-font-size-lg:16px;
+	$uni-font-size-sm: 12px;
+	$uni-font-size-base: 14px;
+	$uni-font-size-lg: 16px;
 	$uni-spacing-col-lg: 12px;
 	$uni-spacing-row-lg: 15px;
-	$uni-img-size-sm:20px;
-	$uni-img-size-base:26px;
-	$uni-img-size-lg:40px;
-	$uni-border-color:#e5e5e5;
-	$uni-bg-color-hover:#f1f1f1;
-	$uni-text-color-grey:#999;
+	$uni-img-size-sm: 20px;
+	$uni-img-size-base: 26px;
+	$uni-img-size-lg: 40px;
+	$uni-border-color: #e5e5e5;
+	$uni-bg-color-hover: #f1f1f1;
+	$uni-text-color-grey: #999;
 	$list-item-pd: $uni-spacing-col-lg $uni-spacing-row-lg;
 
 	.uni-list-item {

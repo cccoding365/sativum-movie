@@ -65,7 +65,7 @@
 			:refresher-triggered="refresherTriggered" @scrolltolower="onScroll2Lower">
 			<uni-list class="movie-list">
 				<uni-list-item v-for="item in movieList.results" class="movie-item" :border="false" :key="item.id"
-					:customStyle="{padding:'10px 15px 0 15px',backgroundColor:'#DDD'}" @tap="onMovieDetail(item.id)">
+					:customStyle="{padding:'10px 15px 0',backgroundColor:'#EEE'}" @tap="onMovieDetail(item.id)">
 					<template v-slot:header>
 						<view class="poster">
 							<image class="image" v-if="item.poster_path" lazy-load mode="aspectFit"
@@ -133,7 +133,6 @@
 			}
 
 			.info {
-				// color: #FFF;
 				display: flex;
 				flex: 1;
 				flex-direction: column;
@@ -151,11 +150,15 @@
 				}
 
 				.genre-list {
+					display: flex;
+					gap: 10rpx;
+					color: #FFF;
 
-					// color: #DDD;
 					.genre-item {
-						padding-inline: 10rpx;
+						padding: 5rpx 10rpx;
+						border-radius: 5rpx;
 						font-size: 24rpx;
+						background-color: darkgreen;
 					}
 				}
 
