@@ -29,6 +29,9 @@
 		"root": "views",
 		"pages": [ // 分包页面列表
 			{
+				"path": "movieList/index"
+			},
+			{
 				"path": "movieDetail/index"
 			},
 			{

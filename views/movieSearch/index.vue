@@ -36,7 +36,7 @@
 			loadMoreStatus.value = movieList.value.page >= movieList.value.total_pages ? 'no-more' : 'more';
 		});
 	};
-
+	const searchHistory = ref<string[]>([]);
 	const addSearchHistory = (query : string) => {
 		const data = new Set(searchHistory.value);
 		data.add(query);
@@ -74,8 +74,6 @@
 			onSearch();
 		}
 	};
-
-	const searchHistory = ref<string[]>([]);
 </script>
 
 <template>
