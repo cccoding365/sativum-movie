@@ -32,16 +32,16 @@
 		}]
 	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "蒜苗",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#333",
+		"backgroundColor": "#666"
 	},
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#30CC60",
 		"borderStyle": "black",
-		"backgroundColor": "#ffffff",
+		"backgroundColor": "#333",
 		"list": [ // 菜单栏
 			{
 				"pagePath": "pages/index/index",

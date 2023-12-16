@@ -1,5 +1,5 @@
 <template>
-	<uni-nav-bar statusBar title="蒜苗" />
+	<uni-nav-bar statusBar color="#FFF" backgroundColor="#333" title="蒜苗" />
 	<view class="container">
 		<uni-search-bar placeholder="搜索你感兴趣的电影" bgColor="#EEEEEE" v-model="searchQuery" @confirm="search"
 			@cancel="onSearchCancel" />

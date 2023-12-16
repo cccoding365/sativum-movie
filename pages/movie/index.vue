@@ -1,34 +1,3 @@
-<template>
-	<uni-nav-bar statusBar title="电影" />
-	<view class="page-container">
-		<scroll-view class="movie-list" scroll-y="true" refresher-enabled :show-scrollbar="false"
-			@refresherrefresh="onRefresherrefresh" :refresher-triggered="refresherTriggered"
-			@scrolltolower="onScroll2Lower">
-			<view class="movie-item" v-for="item in movieList.results" :key="item.id" @tap="onMovieDetail(item.id)">
-				<view class="poster">
-					<image class="image" :src="configs.IMAGE_URL.medium + item.poster_path" mode="aspectFit"
-						lazy-load />
-				</view>
-				<view class="info">
-					<view class="release-date-title">
-						<text class="release-date"> ({{ item.release_date.split('-')[0] }}) </text>
-						<text class="title"> {{ item.title }} </text>
-					</view>
-					<view class="genre-list">
-						<text class="genre-item" v-for="it in item.genre_ids" :key="it"> {{ getMovieGenre(it) }}
-						</text>
-					</view>
-					<view class="vote-average">
-						<uni-rate readonly :value="(item.vote_average/2).toFixed(1)" max="5" :size="18" />
-						<text> {{ item.vote_average.toFixed(1) }} </text>
-					</view>
-				</view>
-			</view>
-			<uni-load-more :status="loadMoreStatus" />
-		</scroll-view>
-	</view>
-</template>
-
 <script lang="ts" setup>
 	import { onMounted, ref } from 'vue';
 	import configs from '@/configs';
@@ -73,7 +42,6 @@
 		loadMoreStatus.value = currentPage === total_pages ? 'no-more' : 'more';
 	};
 
-
 	const onScroll2Lower = () => {
 		if (loadMoreStatus.value === 'more') {
 			fetchMovieListData();
@@ -81,59 +49,112 @@
 	};
 </script>
 
+<template>
+	<uni-nav-bar statusBar color="#FFF" backgroundColor="#333" title="电影" />
+	<view class="page-container">
+		<scroll-view scroll-y="true" refresher-enabled :show-scrollbar="false" @refresherrefresh="onRefresherrefresh"
+			:refresher-triggered="refresherTriggered" @scrolltolower="onScroll2Lower">
+			<uni-list class="movie-list">
+				<uni-list-item class="movie-item" v-for="item in movieList.results" :key="item.id"
+					@tap="onMovieDetail(item.id)">
+					<template v-slot:header>
+						<view class="poster">
+							<image class="image" v-if="item.poster_path" lazy-load mode="aspectFit"
+								:src="configs.IMAGE_URL.medium + item.poster_path" />
+						</view>
+					</template>
+					<template v-slot:body>
+						<view class="info">
+							<view class="release-date-title">
+								<text class="release-date"> ({{ item.release_date.split('-')[0] }}) </text>
+								<text class="title"> {{ item.title }} </text>
+							</view>
+							<view class="genre-list">
+								<text class="genre-item" v-for="it in item.genre_ids" :key="it">
+									{{ getMovieGenre(it) }}
+								</text>
+							</view>
+							<view class="vote-average">
+								<uni-rate readonly :value="(item.vote_average/2).toFixed(1)" max="5" :size="18" />
+								<text> {{ item.vote_average.toFixed(1) }} </text>
+							</view>
+						</view>
+					</template>
+				</uni-list-item>
+			</uni-list>
+
+			<uni-load-more :status="loadMoreStatus" />
+		</scroll-view>
+	</view>
+</template>
+
 <style lang="scss" scoped>
-	scroll-view ::-webkit-scrollbar {
-		width: 0;
-		height: 0;
-		background-color: transparent;
+	scroll-view {
+		height: calc(100vh - 180rpx);
 	}
 
-	.page-container {
-		padding: 20rpx;
+	.movie-list {
+		.movie-item {
+			.poster {
+				width: 160rpx;
+				height: 240rpx;
+				border-radius: 15rpx 0 0 15rpx;
+				overflow: hidden;
+				flex-shrink: 0;
+				position: relative;
 
-		.movie-list {
-			height: calc(100vh - 200rpx);
+				.image {
+					width: 100%;
+					height: 100%;
+				}
 
-			.movie-item {
+				&::after {
+					content: 'no poster';
+					position: absolute;
+					inset: 0;
+					color: #F4F4F4;
+					font-weight: bold;
+					text-align: center;
+					text-transform: capitalize;
+					background-color: #CCC;
+					display: flex;
+					align-items: center;
+					z-index: -1;
+				}
+			}
+
+			.info {
+				color: #FFF;
 				display: flex;
-				gap: 20rpx;
-				margin-bottom: 20rpx;
+				flex: 1;
+				flex-direction: column;
+				background-color: #333;
+				padding-inline-start: 30rpx;
+				border-radius: 0 15rpx 15rpx 0;
 
-				.poster {
-					width: 160rpx;
-					height: 240rpx;
-					border-radius: 15rpx;
+				.release-date-title {
+					line-height: 3;
+					font-weight: bold;
 					overflow: hidden;
-					flex-shrink: 0;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					max-width: calc(100vw - 300rpx);
+				}
 
-					.image {
-						width: 100%;
-						height: 100%;
+				.genre-list {
+					color: #DDD;
+
+					.genre-item {
+						padding-inline: 10rpx;
+						font-size: 24rpx;
 					}
 				}
 
-				.info {
+				.vote-average {
 					display: flex;
-					flex-direction: column;
-
-					.release-date-title {
-						.title {
-							line-height: 2;
-						}
-					}
-
-					.genre-list {
-						.genre-item {
-							margin-right: 10rpx;
-							font-size: 24rpx;
-						}
-					}
-
-					.vote-average {
-						display: flex;
-						align-items: center;
-						line-height: 2;
-					}
+					gap: 10rpx;
+					align-items: center;
+					line-height: 3;
 				}
 			}
 		}

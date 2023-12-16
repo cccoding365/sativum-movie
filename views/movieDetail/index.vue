@@ -1,7 +1,8 @@
 <template>
-	<view v-if="movieDetail" class="page-container">
+	<view class="page-container" v-if="movieDetail">
 		<view class="backdrop">
-			<image class="image" :src="configs.IMAGE_URL.large + movieDetail.backdrop_path" mode="aspectFit" />
+			<image class="image" v-if="movieDetail.backdrop_path" lazy-load mode="aspectFit"
+				:src="configs.IMAGE_URL.large + movieDetail.backdrop_path" />
 		</view>
 		<view class="title">
 			{{ movieDetail.title }}
@@ -59,7 +60,7 @@
 		padding: 0 20rpx;
 
 		.backdrop {
-			margin: 0 -20rpx;
+			margin: 0 -22rpx;
 			height: 420rpx;
 
 			.image {
