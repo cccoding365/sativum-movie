@@ -54,7 +54,7 @@
 	<view class="page-container">
 		<scroll-view scroll-y="true" refresher-enabled :show-scrollbar="false" @refresherrefresh="onRefresherrefresh"
 			:refresher-triggered="refresherTriggered" @scrolltolower="onScroll2Lower">
-			<uni-list class="movie-list">
+			<uni-list class="movie-list" :border="false">
 				<uni-list-item class="movie-item" v-for="item in movieList.results" :key="item.id"
 					@tap="onMovieDetail(item.id)">
 					<template v-slot:header>

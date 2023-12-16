@@ -1,5 +1,5 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [ // 主包页面列表，首项为启动页
 		{
 			"path": "pages/index/index",
 			"style": {
@@ -27,21 +27,26 @@
 	],
 	"subPackages": [{
 		"root": "views",
-		"pages": [{
-			"path": "movieDetail/index"
-		}]
+		"pages": [ // 分包页面列表
+			{
+				"path": "movieDetail/index"
+			},
+			{
+				"path": "movieSearch/index"
+			}
+		]
 	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
+		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "蒜苗",
-		"navigationBarBackgroundColor": "#333",
+		"navigationBarBackgroundColor": "#FFF",
 		"backgroundColor": "#666"
 	},
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#30CC60",
 		"borderStyle": "black",
-		"backgroundColor": "#333",
+		"backgroundColor": "#FFF",
 		"list": [ // 菜单栏
 			{
 				"pagePath": "pages/index/index",
