@@ -1,7 +1,38 @@
+<script lang="ts" setup>
+	import { ref } from 'vue';
+	import { onLoad } from '@dcloudio/uni-app';
+	import configs from '@/configs';
+	import apis from '@/apis';
+	import types from '@/types';
+
+	const movieDetail = ref<types.MovieDetail>();
+
+	onLoad(async params => {
+		uni.showLoading();
+		movieDetail.value = await apis.getMovie(params.id) as types.MovieDetail;
+		uni.hideLoading();
+		uni.setNavigationBarTitle({
+			title: movieDetail.value.title
+		});
+	});
+
+	const fold = ref<boolean>(true);
+	const onToggleUnfold = () => {
+		fold.value = !fold.value;
+	};
+
+	const onBack = () => {
+		uni.navigateBack();
+	};
+</script>
+
 <template>
+	<NavigationBar>
+		<uni-icons type="back" color="#FFF" @tap="onBack" />
+	</NavigationBar>
 	<view class="page-container" v-if="movieDetail">
 		<view class="backdrop">
-			<image class="image" v-if="movieDetail.backdrop_path" lazy-load mode="aspectFit"
+			<image class="image" v-if="movieDetail.backdrop_path" lazy-load mode="widthFix"
 				:src="configs.IMAGE_URL.large + movieDetail.backdrop_path" />
 		</view>
 		<view class="title">
@@ -31,41 +62,25 @@
 	</view>
 </template>
 
-<script lang="ts" setup>
-	import { ref } from 'vue';
-	import { onLoad } from '@dcloudio/uni-app';
-	import configs from '@/configs';
-	import apis from '@/apis';
-	import types from '@/types';
-
-	const movieDetail = ref<types.MovieDetail>();
-
-	onLoad(async params => {
-		uni.showLoading();
-		movieDetail.value = await apis.getMovie(params.id) as types.MovieDetail;
-		uni.hideLoading();
-		uni.setNavigationBarTitle({
-			title: movieDetail.value.title
-		});
-	});
-
-	const fold = ref<boolean>(true);
-	const onToggleUnfold = () => {
-		fold.value = !fold.value;
-	};
-</script>
-
 <style lang="scss" scoped>
+	.navigation-bar {
+		position: absolute;
+		z-index: 999;
+		left: 20rpx;
+	}
+
 	.page-container {
-		padding: 0 20rpx;
-
 		.backdrop {
-			margin: 0 -22rpx;
-			height: 420rpx;
-
 			.image {
 				width: 100%;
-				height: 100%;
+				position: relative;
+
+				&::after {
+					content: '';
+					position: absolute;
+					inset: 0;
+					background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 30%);
+				}
 			}
 		}
 

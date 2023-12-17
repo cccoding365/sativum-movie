@@ -32,7 +32,11 @@
 				"path": "movieList/index"
 			},
 			{
-				"path": "movieDetail/index"
+				"path": "movieDetail/index",
+				"style": {
+					"navigationStyle": "custom",
+					"navigationBarTextStyle": "white"
+				}
 			},
 			{
 				"path": "movieSearch/index"
@@ -40,9 +44,9 @@
 		]
 	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "蒜苗",
-		"navigationBarBackgroundColor": "#FFF",
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "蒜苗电影",
+		"navigationBarBackgroundColor": "#30CC60",
 		"backgroundColor": "#666"
 	},
 	"tabBar": {

@@ -33,8 +33,28 @@
 		return genres.find(item => item.id === id).name;
 	};
 
+	interface MovieMenu {
+		id : number;
+		label : string;
+		value : types.MovieFilter;
+	}
+
+	const movieMenus : MovieMenu[] = [
+		{ id: 1, label: '热映影片', value: 'now_playing' },
+		{ id: 2, label: '高分经典', value: 'top_rated' },
+		{ id: 3, label: '即将上映', value: 'upcoming' },
+		{ id: 4, label: '最受欢迎', value: 'popular' }
+	];
+
 	onLoad(query => {
 		movieFilter.value = query.filter;
+
+		const pageTitle = movieMenus.find(item => item.value === query.filter).label;
+		console.log(pageTitle);
+		uni.setNavigationBarTitle({
+			title: pageTitle
+		});
+
 		fetchMovieList(movieFilter.value, 1);
 	});
 
