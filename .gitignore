@@ -1,3 +1,5 @@
 .hbuilderx
 unpackage
 configs/index.ts
+node_modules
+servers/index.js
