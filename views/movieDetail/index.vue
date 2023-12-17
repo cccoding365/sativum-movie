@@ -30,34 +30,47 @@
 	<NavigationBar>
 		<uni-icons type="back" color="#FFF" @tap="onBack" />
 	</NavigationBar>
+	<view class="backdrop">
+		<image class="image" v-if="movieDetail.backdrop_path" lazy-load mode="widthFix"
+			:src="configs.IMAGE_URL.large + movieDetail.backdrop_path" />
+	</view>
 	<view class="page-container" v-if="movieDetail">
-		<view class="backdrop">
-			<image class="image" v-if="movieDetail.backdrop_path" lazy-load mode="widthFix"
-				:src="configs.IMAGE_URL.large + movieDetail.backdrop_path" />
+		<view class="base-info">
+			<view class="poster">
+				<image v-if="movieDetail.poster_path" class="image" mode="scaleToFill"
+					:src="configs.IMAGE_URL.medium + movieDetail.poster_path" />
+			</view>
+			<view class="info">
+				<text class="title">{{ movieDetail.title }}</text>
+				<text class="original-title ellipsis"> {{ movieDetail.original_title }} </text>
+				<view class="vote-average flex">
+					<uni-rate readonly :value="(movieDetail.vote_average/2).toFixed(1)" max="5" :size="18" />
+					<text>{{ movieDetail.vote_average.toFixed(1) }}</text>
+				</view>
+				<text class="genres"> {{ movieDetail.genres.map(i=>i.name).join(' / ') }} </text>
+				<view class="release-date-runtime">
+					<text>{{ movieDetail.release_date }} / </text><text>{{ movieDetail.runtime }}分钟</text>
+				</view>
+				<view class="actions">
+					<view class="action-item flex">
+						<uni-icons type="heart" color="#666" size="20" />
+						<text>想看</text>
+					</view>
+					<view class="action-item flex">
+						<uni-icons type="star" color="#666" size="20" />
+						<text>看过</text>
+					</view>
+				</view>
+			</view>
 		</view>
-		<view class="title">
-			{{ movieDetail.title }}
-		</view>
-		<view class="tagline">
-			{{ movieDetail.tagline }}
-		</view>
-		<view class="runtime-vote-average">
-			<uni-icons class="icon" type="loop" size="30" />
-			<text class="runtime"> {{ movieDetail.runtime }} minutes </text>
-			<uni-icons class="icon" type="star-filled" size="30" />
-			<text class="vote-average">{{ movieDetail.vote_average.toFixed(1) }}</text>
-		</view>
-		<view class="release-date">
-			<view class="label"> 上映日期 </view>
-			<text>{{ movieDetail.release_date }}</text>
-		</view>
-		<view class="genres">
-			<view class="label"> 类型 </view>
-			<text class="genre" v-for="item in movieDetail.genres" :key="item.id">{{ item.name }}</text>
-		</view>
-		<view class="overview">
-			<view class="label"> 简介 </view>
-			<text class="content" :class="{fold}" @tap="onToggleUnfold"> {{ movieDetail.overview }} </text>
+		<view class="more-info flex-col">
+			<view class="tagline">
+				{{ movieDetail.tagline }}
+			</view>
+			<view class="overview">
+				<view class="label"> 简介 </view>
+				<text class="content" :class="{fold}" @tap="onToggleUnfold"> {{ movieDetail.overview }} </text>
+			</view>
 		</view>
 	</view>
 </template>
@@ -69,61 +82,108 @@
 		left: 20rpx;
 	}
 
-	.page-container {
-		.backdrop {
-			.image {
-				width: 100%;
-				position: relative;
+	.backdrop {
+		.image {
+			width: 100%;
+			position: relative;
 
-				&::after {
-					content: '';
-					position: absolute;
-					inset: 0;
-					background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 30%);
+			&::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to top, rgba(30, 30, 30, 0.8), rgba(30, 30, 30, 0.5));
+			}
+		}
+	}
+
+	.page-container {
+		transform: translateY(-150rpx);
+
+		.base-info {
+			padding: 20rpx;
+			display: flex;
+			gap: 20rpx;
+			font-size: 28rpx;
+			color: #666;
+
+			.poster {
+				width: 240rpx;
+				height: 360rpx;
+				border-radius: 20rpx;
+				overflow: hidden;
+
+				.image {
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			.info {
+				display: flex;
+				flex: 1;
+				flex-direction: column;
+				gap: 10rpx;
+
+				.title {
+					font-weight: bold;
+					font-size: 40rpx;
+					line-height: 1.5;
+					color: #FFF;
+				}
+
+				.original-title {
+					margin-bottom: auto;
+					color: #FFF;
+				}
+
+				.vote-average {
+					align-items: center;
+					gap: 10rpx;
+				}
+
+				.actions {
+					display: flex;
+					gap: 20rpx;
+					text-align: center;
+
+					.action-item {
+						flex: 1;
+						border: 2rpx solid #333;
+						border-radius: 10rpx;
+						padding: 10rpx 10rpx;
+						gap: 5rpx;
+						align-items: center;
+						justify-content: center;
+					}
 				}
 			}
 		}
 
-		.title {
-			font-size: 40rpx;
-			line-height: 2;
-		}
+		.more-info {
+			padding: 20rpx;
+			gap: 20rpx;
 
-		.tagline {
-			font-size: 30rpx;
-			color: #666;
-		}
-
-		.runtime-vote-average {
-			display: flex;
-			align-items: center;
-			margin: 10rpx 0;
-
-			.icon {
-				margin-right: 10rpx;
+			.tagline {
+				font-size: 30rpx;
 			}
 
-			.runtime {
-				margin-right: 30rpx;
+			.label {
+				font-size: 36rpx;
+				margin-bottom: 10rpx;
+				text-transform: capitalize;
 			}
-		}
 
-		.label {
-			font-size: 36rpx;
-			margin-bottom: 10rpx;
-			text-transform: capitalize;
-		}
+			.overview {
+				font-size: 28rpx;
+				position: relative;
 
-		.overview {
-			font-size: 28rpx;
-			position: relative;
-
-			.content {
-				&.fold {
-					display: -webkit-box;
-					overflow: hidden;
-					-webkit-line-clamp: 5;
-					-webkit-box-orient: vertical;
+				.content {
+					&.fold {
+						// display: -webkit-box;
+						// overflow: hidden;
+						// -webkit-line-clamp: 3;
+						// -webkit-box-orient: vertical;
+					}
 				}
 			}
 		}

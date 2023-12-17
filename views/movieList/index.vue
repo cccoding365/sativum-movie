@@ -94,10 +94,8 @@
 					</template>
 					<template v-slot:body>
 						<view class="info">
-							<view class="release-date-title">
-								<text class="release-date"> ({{ item.release_date.split('-')[0] }}) </text>
-								<text class="title"> {{ item.title }} </text>
-							</view>
+							<text class="title ellipsis"> {{ item.title }} </text>
+							<text class="release-date"> {{ item.release_date.replaceAll('-','/') }} </text>
 							<view class="genre-list">
 								<text class="genre-item" v-for="it in item.genre_ids" :key="it">
 									{{ getMovieGenre(it) }}
@@ -156,17 +154,20 @@
 				display: flex;
 				flex: 1;
 				flex-direction: column;
+				gap: 15rpx;
 				background-color: #FFF;
-				padding-inline-start: 30rpx;
+				padding-inline: 30rpx;
 				border-radius: 0 15rpx 15rpx 0;
 
-				.release-date-title {
-					line-height: 3;
+				.title {
+					line-height: 2;
 					font-weight: bold;
-					overflow: hidden;
-					white-space: nowrap;
-					text-overflow: ellipsis;
-					max-width: calc(100vw - 300rpx);
+					max-width: calc(100vw - 280rpx);
+				}
+
+				.release-date {
+					font-size: 24rpx;
+					color: #999;
 				}
 
 				.genre-list {
@@ -178,7 +179,7 @@
 						padding: 5rpx 10rpx;
 						border-radius: 5rpx;
 						font-size: 24rpx;
-						background-color: darkgreen;
+						background-color: #00B26A;
 					}
 				}
 
@@ -186,7 +187,6 @@
 					display: flex;
 					gap: 10rpx;
 					align-items: center;
-					line-height: 3;
 				}
 			}
 		}

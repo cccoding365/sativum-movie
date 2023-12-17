@@ -23,4 +23,23 @@
 	page {
 		color: #333;
 	}
+
+	.flex {
+		display: flex;
+	}
+
+	.flex-col {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.text-center {
+		text-align: center;
+	}
+
+	.ellipsis {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
 </style>
