@@ -7,8 +7,8 @@
 	</view>
 	<!-- #endif -->
 	<!-- #ifdef APP-NVUE -->
-	<list :bounce="false" :scrollable="true" show-scrollbar :render-reverse="renderReverse" @scroll="scroll" class="uni-list" :class="{ 'uni-list--border': border }" :enableBackToTop="enableBackToTop"
-		loadmoreoffset="15">
+	<list :bounce="false" :scrollable="true" show-scrollbar :render-reverse="renderReverse" @scroll="scroll"
+		class="uni-list" :class="{ 'uni-list--border': border }" :enableBackToTop="enableBackToTop" loadmoreoffset="15">
 		<slot />
 	</list>
 	<!-- #endif -->
@@ -29,9 +29,9 @@
 			}
 		},
 		props: {
-			stackFromEnd:{
+			stackFromEnd: {
 				type: Boolean,
-				default:false
+				default: false
 			},
 			enableBackToTop: {
 				type: [Boolean, String],
@@ -45,7 +45,7 @@
 				type: Boolean,
 				default: true
 			},
-			renderReverse:{
+			renderReverse: {
 				type: Boolean,
 				default: false
 			}
@@ -69,8 +69,8 @@
 	};
 </script>
 <style lang="scss">
-	$uni-bg-color:#ffffff;
-	$uni-border-color:#e5e5e5;
+	$uni-bg-color: #ffffff;
+	$uni-border-color: #e5e5e5;
 
 	.uni-list {
 		/* #ifndef APP-NVUE */
@@ -79,6 +79,10 @@
 		background-color: $uni-bg-color;
 		position: relative;
 		flex-direction: column;
+		margin: 0 30rpx;
+		border-radius: 8rpx;
+		overflow: hidden;
+		box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.08);
 	}
 
 	.uni-list--border {
@@ -95,7 +99,6 @@
 	}
 
 	/* #ifndef APP-NVUE */
-
 	.uni-list--border-top {
 		position: absolute;
 		top: 0;

@@ -48,13 +48,10 @@
 
 	onLoad(query => {
 		movieFilter.value = query.filter;
-
 		const pageTitle = movieMenus.find(item => item.value === query.filter).label;
-		console.log(pageTitle);
 		uni.setNavigationBarTitle({
 			title: pageTitle
 		});
-
 		fetchMovieList(movieFilter.value, 1);
 	});
 
