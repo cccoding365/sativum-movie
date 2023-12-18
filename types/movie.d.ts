@@ -81,3 +81,24 @@ export interface MovieList {
 }
 
 export type MovieFilter = 'popular' | 'now_playing' | 'top_rated' | 'upcoming';
+
+export interface MovieCast {
+	adult : boolean;
+	cast_id : number;
+	character : string;
+	credit_id : string;
+	gender : number;
+	id : number;
+	known_for_department : string;
+	name : string;
+	order : number;
+	original_name : string;
+	popularity : number;
+	profile_path : string;
+}
+
+export interface MovieCredits {
+	cast : MovieCast[];
+	crew : any[];
+	id : number;
+}
