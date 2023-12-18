@@ -79,7 +79,6 @@
 		background-color: $uni-bg-color;
 		position: relative;
 		flex-direction: column;
-		margin: 0 30rpx;
 		border-radius: 8rpx;
 		overflow: hidden;
 		box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.08);

@@ -67,15 +67,15 @@
 		.movie-menus {
 			display: flex;
 			justify-content: center;
-			gap: 20rpx;
+			gap: 30rpx;
 			flex-wrap: wrap;
-			padding: 20rpx;
+			padding: 30rpx;
 
 			.menu-item {
-				width: calc(50% - 10rpx);
+				width: calc(50% - 20rpx);
 				color: #FFF;
 				border-radius: 15rpx;
-				height: 180rpx;
+				height: 150rpx;
 				display: flex;
 				justify-content: center;
 				position: relative;

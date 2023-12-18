@@ -82,7 +82,7 @@
 			:refresher-triggered="refresherTriggered" @scrolltolower="onScroll2Lower">
 			<uni-list class="movie-list">
 				<uni-list-item v-for="item in movieList.results" class="movie-item" :border="false" :key="item.id"
-					:customStyle="{padding:'10px 15px 0',backgroundColor:'#EEE'}" @tap="onMovieDetail(item.id)">
+					:customStyle="{padding:'15px 15px 0',backgroundColor:'#EEE'}" @tap="onMovieDetail(item.id)">
 					<template v-slot:header>
 						<view class="poster">
 							<image class="image" v-if="item.poster_path" lazy-load mode="aspectFit"

@@ -28,10 +28,12 @@
 				</view>
 			</view>
 		</uni-card>
-		<uni-list class="menu-list" :border="false">
-			<uni-list-item v-for="i in 7" :key="i" showExtraIcon showArrow :extraIcon="{ type:'gear' }" :border="false"
-				:title="`菜单 ${i}`" />
-		</uni-list>
+		<view class="menu-list">
+			<uni-list :border="false">
+				<uni-list-item v-for="i in 7" :key="i" showExtraIcon showArrow :extraIcon="{ type:'gear' }"
+					:border="false" :title="`菜单 ${i}`" />
+			</uni-list>
+		</view>
 	</view>
 </template>
 
@@ -42,7 +44,9 @@
 		padding-top: calc(var(--status-bar-height) + 120rpx);
 		position: relative;
 
-		.menu-list {}
+		.menu-list {
+			padding: 0 30rpx;
+		}
 
 		.user-info {
 			.header {
