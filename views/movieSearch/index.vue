@@ -91,11 +91,9 @@
 				<text>暂无搜索记录</text>
 			</view>
 		</view>
-		<scroll-view class="movie-list" scroll-y="true" lower-threshold="200" :show-scrollbar="false"
-			@scrolltolower="onScroll2Lower">
-			<uni-grid :showBorder="false" :square="false">
-				<uni-grid-item class="movie-item" v-for="item in movieList.results" :key="item.id"
-					@tap="onMovieDetail(item.id)">
+		<scroll-view scroll-y="true" lower-threshold="200" :show-scrollbar="false" @scrolltolower="onScroll2Lower">
+			<view class="movie-list">
+				<view class="movie-item" v-for="item in movieList.results" :key="item.id" @tap="onMovieDetail(item.id)">
 					<view class="poster">
 						<image v-if="item.poster_path" class="image" :src="configs.IMAGE_URL.medium + item.poster_path"
 							mode="aspectFit" lazy-load />
@@ -104,14 +102,19 @@
 						</view>
 						<text class="title"> {{ item.title }} </text>
 					</view>
-				</uni-grid-item>
-			</uni-grid>
+				</view>
+			</view>
 			<uni-load-more v-if="loadMoreStatus" :status="loadMoreStatus" />
 		</scroll-view>
 	</view>
 </template>
 
 <style lang="scss" scoped>
+	scroll-view {
+		height: calc(100vh - 200rpx);
+		margin-top: 20rpx;
+	}
+
 	.page-container {
 		.search-history {
 			display: flex;
@@ -140,15 +143,15 @@
 		}
 
 		.movie-list {
-			height: calc(100vh - 200rpx);
-			margin-top: 20rpx;
+			padding: 0 30rpx;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 30rpx;
 
 			.movie-item {
-				padding-bottom: 30rpx;
-
 				.poster {
-					width: 180rpx;
-					height: 270rpx;
+					width: 200rpx;
+					height: 300rpx;
 					border-radius: 15rpx;
 					overflow: hidden;
 					flex-shrink: 0;
