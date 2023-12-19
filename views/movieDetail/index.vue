@@ -37,7 +37,7 @@
 	<NavigationBar>
 		<uni-icons type="back" color="#FFF" @tap="onBack" />
 	</NavigationBar>
-	<view class="backdrop">
+	<view class="backdrop" v-if="movieDetail">
 		<image class="image" v-if="movieDetail.backdrop_path" lazy-load mode="widthFix"
 			:src="configs.IMAGE_URL.large + movieDetail.backdrop_path" />
 	</view>
@@ -87,7 +87,7 @@
 				</view>
 				<scroll-view scroll-x="true" :show-scrollbar="false">
 					<view class="cast-list flex">
-						<view v-for="item in movieCredits.cast" class="cast-item">
+						<view v-for="item in movieCredits.cast" :key="item.id" class="cast-item">
 							<view class="profile">
 								<image class="image" :src="configs.IMAGE_URL.medium + item.profile_path"
 									mode="aspectFit" />

@@ -157,13 +157,14 @@
 				border-radius: 0 15rpx 15rpx 0;
 
 				.title {
+					font-size: $uni-font-size-xl;
 					line-height: 2;
 					font-weight: bold;
 					max-width: calc(100vw - 280rpx);
 				}
 
 				.release-date {
-					font-size: 24rpx;
+					font-size: $uni-font-size-sm;
 					color: #999;
 				}
 
@@ -175,7 +176,7 @@
 					.genre-item {
 						padding: 5rpx 10rpx;
 						border-radius: 5rpx;
-						font-size: 24rpx;
+						font-size: $uni-font-size-sm;
 						background-color: #00B26A;
 					}
 				}

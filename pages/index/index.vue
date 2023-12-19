@@ -73,7 +73,7 @@
 			justify-content: center;
 			flex-wrap: wrap;
 			gap: $uni-gap-lg;
-			padding: $uni-gap-lg;
+			padding: 0 $uni-gap-lg;
 
 			.menu-item {
 				width: calc(50% - 16rpx);

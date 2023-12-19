@@ -13,12 +13,6 @@
 			}
 		},
 		{
-			"path": "pages/category/index",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/mine/index",
 			"style": {
 				"navigationStyle": "custom"
@@ -66,12 +60,6 @@
 				"iconPath": "static/icon/category.png",
 				"selectedIconPath": "static/icon/category-active.png",
 				"text": "电影"
-			},
-			{
-				"pagePath": "pages/category/index",
-				"iconPath": "static/icon/category.png",
-				"selectedIconPath": "static/icon/category-active.png",
-				"text": "分类"
 			},
 			{
 				"pagePath": "pages/mine/index",
