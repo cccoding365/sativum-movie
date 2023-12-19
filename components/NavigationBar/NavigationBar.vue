@@ -20,6 +20,6 @@
 	.navigation-bar {
 		position: absolute;
 		z-index: 999;
-		left: 20rpx;
+		left: $uni-gap-lg;
 	}
 </style>

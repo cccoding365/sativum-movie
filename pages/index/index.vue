@@ -43,9 +43,13 @@
 	</NavigationBar>
 	<view class="page-container">
 		<view class="movie-menus">
-			<view class="menu-item" v-for="item in movieMenus" :key="item.id" @tap="onMovieList(item.value)">
-				<image class="menu-cover" :src="configs.IMAGE_URL.large + item.cover" mode="aspectFill" />
-				<text class="menu-title"> {{item.label}} </text>
+			<view class="menu-item" v-for="item in movieMenus" :key="item.id">
+				<uni-card isFull isShadow :border="false" padding="0" spacing="0" @tap="onMovieList(item.value)">
+					<view class="menu-cover">
+						<image class="image" :src="configs.IMAGE_URL.large + item.cover" mode="aspectFill" />
+						<text class="title"> {{item.label}} </text>
+					</view>
+				</uni-card>
 			</view>
 		</view>
 	</view>
@@ -54,7 +58,7 @@
 <style lang="scss" scoped>
 	.search-bar {
 		display: flex;
-		gap: 10rpx;
+		gap: $uni-gap-sm;
 		color: #FFF;
 	}
 
@@ -67,38 +71,35 @@
 		.movie-menus {
 			display: flex;
 			justify-content: center;
-			gap: 30rpx;
 			flex-wrap: wrap;
-			padding: 30rpx;
+			gap: $uni-gap-lg;
+			padding: $uni-gap-lg;
 
 			.menu-item {
-				width: calc(50% - 20rpx);
-				color: #FFF;
-				border-radius: 15rpx;
-				height: 150rpx;
-				display: flex;
-				justify-content: center;
+				width: calc(50% - 16rpx);
 				position: relative;
 				overflow: hidden;
 				z-index: 9;
-				background-color: #FFF;
+				border-radius: 8rpx;
 
 				.menu-cover {
-					width: 100%;
-					height: 100%;
-					position: absolute;
-					inset: 0;
-					z-index: -1;
-				}
+					height: 130rpx;
 
-				.menu-title {
-					width: 100%;
-					text-align: center;
-					font-weight: bold;
-					position: absolute;
-					bottom: 0;
-					line-height: 2;
-					background: linear-gradient(to top, #999 30%, transparent);
+					.image {
+						width: 100%;
+						height: 100%;
+						position: absolute;
+					}
+
+					.title {
+						color: #FFF;
+						width: 100%;
+						text-align: center;
+						font-weight: bold;
+						position: absolute;
+						bottom: 0;
+						line-height: 2;
+					}
 				}
 			}
 		}
