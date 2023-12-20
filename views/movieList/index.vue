@@ -15,7 +15,7 @@
 	const refresherTriggered = ref<boolean>(false);
 	const loadMoreStatus = ref<types.LoadMoreStatus>('more');
 	const fetchMovieList = (filter : types.MovieFilter, page : number) => {
-		loadMoreStatus.value = 'loading';
+		// loadMoreStatus.value = 'loading';
 		apis.getMovies(filter, page).then(res => {
 			const lastResults = movieList.value.results;
 			Object.assign(movieList.value, res);
@@ -23,6 +23,7 @@
 				movieList.value.results.unshift(...lastResults);
 			}
 		}).finally(() => {
+			uni.hideLoading();
 			if (page === 1) refresherTriggered.value = false;
 			loadMoreStatus.value = movieList.value.page >= movieList.value.total_pages ? 'no-more' : 'more';
 		});
@@ -52,6 +53,7 @@
 		uni.setNavigationBarTitle({
 			title: pageTitle
 		});
+		uni.showLoading({ mask: true });
 		fetchMovieList(movieFilter.value, 1);
 	});
 
@@ -107,7 +109,7 @@
 				</uni-list-item>
 			</uni-list>
 
-			<uni-load-more :status="loadMoreStatus" />
+			<uni-load-more v-if="movieList.page" :status="loadMoreStatus" />
 		</scroll-view>
 	</view>
 </template>

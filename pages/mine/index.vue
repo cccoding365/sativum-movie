@@ -20,7 +20,7 @@
 		<uni-card :border="false" class="user-info">
 			<view class="header">
 				<view class="avatar">
-					<image class="image" src="../../static/avatar.png" mode="aspectFit" />
+					<!-- <image class="image" src="../../static/avatar.png" mode="aspectFit" /> -->
 				</view>
 				<view class="username-id">
 					<text class="username">{{ userInfo.username }}</text>
