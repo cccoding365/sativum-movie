@@ -172,10 +172,12 @@
 
 				.genre-list {
 					display: flex;
+					overflow: scroll;
 					gap: 10rpx;
 					color: #FFF;
 
 					.genre-item {
+						flex-shrink: 0;
 						padding: 5rpx 10rpx;
 						border-radius: 5rpx;
 						font-size: $uni-font-size-sm;
