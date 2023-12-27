@@ -115,10 +115,6 @@
 </template>
 
 <style lang="scss" scoped>
-	scroll-view {
-		height: calc(100vh - 0rpx);
-	}
-
 	.movie-list {
 		.movie-item {
 			.poster {
